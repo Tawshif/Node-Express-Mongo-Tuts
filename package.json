@@ -1,0 +1,21 @@
+{
+  "name": "node_test",
+  "version": "1.0.0",
+  "description": "simple node js customar management app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "js"
+  ],
+  "author": "tawshif",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "ejs": "^2.5.3",
+    "express": "^4.14.0",
+    "express-validator": "^3.0.0"
+  }
+}
