@@ -24,7 +24,12 @@
       <h1><%= title %></h1>
       <ul>
       <% users.forEach(function(user){ %>
-            <li><%= user.first_name %></span>&nbsp;</span><%= user.last_name %></li>
+            <li><%= user.first_name %>
+                  </span>&nbsp;</span>
+                  <%= user.last_name %>
+                  </span>&nbsp;</span>
+                  <a href="#" class="delete" data-id="<%= user._id %>"> - Delete</a>
+            </li>
       <% }) %>
       </ul>
 <% include partials/footer %>
