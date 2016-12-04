@@ -3,6 +3,9 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var expressValidator = require('express-validator');
 
+var mongojs = require('mongojs');
+var db = mongojs('customerapp', ["users"]);
+
 var app = express();
 
 // var logger = function(req, res, next){
@@ -45,28 +48,32 @@ app.use(expressValidator({
     }
 }));
 
-var users = [{
-    id: 1,
-    first_name: "John",
-    last_name: "Doe",
-    email: "john@gmail.com"
-}, {
-    id: 2,
-    first_name: "charli",
-    last_name: "Doe",
-    email: "charli@gmail.com"
-}, {
-    id: 3,
-    first_name: "Neo",
-    last_name: "Doe",
-    email: "neo@gmail.com"
-}]
+// var users = [{
+//     id: 1,
+//     first_name: "John",
+//     last_name: "Doe",
+//     email: "john@gmail.com"
+// }, {
+//     id: 2,
+//     first_name: "charli",
+//     last_name: "Doe",
+//     email: "charli@gmail.com"
+// }, {
+//     id: 3,
+//     first_name: "Neo",
+//     last_name: "Doe",
+//     email: "neo@gmail.com"
+// }]
 
 app.get('/', function(req, res) {
-    res.render('index', {
-        title: "customer",
-        users: users
-    });
+    db.users.find(function(err, docs) {
+        console.log(docs);
+        res.render('index', {
+            title: "customer",
+            users: docs
+        });
+    })
+
 });
 
 app.post("/users/add", function(req, res) {
@@ -75,7 +82,6 @@ app.post("/users/add", function(req, res) {
     req.checkBody('email', 'Email name is requided ').notEmpty();
 
     var errors = req.validationErrors();
-
     if (errors) {
         console.log("Errors");
         res.render('index', {
@@ -87,12 +93,19 @@ app.post("/users/add", function(req, res) {
     } else {
         var newUser = {
             first_name: req.body.first_name,
-            last_name: req.body.first_name,
+            last_name: req.body.last_name,
             email: req.body.email
         }
         console.log("Success");
+        db.users.insert(newUser, function(err, result) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.redirect('/');
+            }
+        });
     }
-    console.log(newUser);
+
 });
 
 app.listen(5000, function() {
