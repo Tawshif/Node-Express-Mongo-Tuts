@@ -1,9 +1,7 @@
-var del = document.getElementsByClassName('delete')
-del.addEventListener("click", function() {
-    console.log(del);
-    var conf = confirm("are u sure ");
-    if (conf) {
+var del = document.getElementsByClassName('delete');
 
-    }
-
-});
+for (var i = 0; i < del.length; i++) {
+    del[i].addEventListener('click', function(e) {
+    	
+    });
+}

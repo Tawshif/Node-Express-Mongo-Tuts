@@ -8,13 +8,6 @@ var db = mongojs('customerapp', ["users"]);
 
 var app = express();
 
-// var logger = function(req, res, next){
-// 	console.log('loging....');
-// 	next();
-// }
-
-// app.use(logger);
-
 // View engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -48,22 +41,6 @@ app.use(expressValidator({
     }
 }));
 
-// var users = [{
-//     id: 1,
-//     first_name: "John",
-//     last_name: "Doe",
-//     email: "john@gmail.com"
-// }, {
-//     id: 2,
-//     first_name: "charli",
-//     last_name: "Doe",
-//     email: "charli@gmail.com"
-// }, {
-//     id: 3,
-//     first_name: "Neo",
-//     last_name: "Doe",
-//     email: "neo@gmail.com"
-// }]
 
 app.get('/', function(req, res) {
     db.users.find(function(err, docs) {
